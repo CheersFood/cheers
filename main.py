@@ -8,4 +8,4 @@ algo.fit(trainingSet)
 
 prediction = algo.predict('E', 2)
 print(prediction.est)
-print("Hiya! Supdogvdsdlkfv")
+print("Hiya! Supdogvdsdlkfvdfv")
