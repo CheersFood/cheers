@@ -1,11 +1,5 @@
-from load_data import data
-from reccommender import algo
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as pyplotimport 
 
-trainingSet = data.build_full_trainset()
-
-algo.fit(trainingSet)
-
-
-prediction = algo.predict('E', 2)
-print(prediction.est)
-print("Hiya! Supdogvdsdlkfvdfvtgfvnknkdfndyhj")
+print("HELLO AND WELCOME TO CHERRY!!")
