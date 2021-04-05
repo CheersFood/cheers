@@ -1,0 +1,9 @@
+/node_modules/
+/misc/
+/__pycache__/
+/venv/
+/.vscode/
+package-lock.json
+order_stages.py
+/.git/
+README.md
