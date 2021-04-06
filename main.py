@@ -21,9 +21,11 @@ def cheers():
     options = ["1", "2", "3", "4", "5", "1.", "2,", "3.", "4.", "5."]
     cuisines = get_cuisines()
     if "food" in incoming_msg:
-
-        welcome = "Welcome to Cheers! What cuisine would you like?\n1. {0}\n2. {1}\n3. {2}\n4. {3}\n5. {4}".format(cuisines[0], cuisines[1], cuisines[2], cuisines[3], cuisines[4])
-        msg.body(welcome)
+        
+        msg.media("https://drive.google.com/uc?export=download&id=1NjZDEH6QIfKELPv0_XMCCGDJLH1nxe-r")
+        
+        # welcome = "Welcome to Cheers! What cuisine would you like?\n1. {0}\n2. {1}\n3. {2}\n4. {3}\n5. {4}".format(cuisines[0], cuisines[1], cuisines[2], cuisines[3], cuisines[4])
+        # msg.body(welcome)
         responded = True
         # session.clear()
         # print(counter)
