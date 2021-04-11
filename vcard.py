@@ -11,7 +11,7 @@ vCard.add('N').value = vobject.vcard.Name(family='Food', given='Cheers')
 vCard.add('FN').value = "Cheers"
 vCard.add('BDAY').value = '2021'
 
-vCard.add('EMAIL')
+vCard.add('Email')
 vCard.email.value = 'cheersfoodapp@gmail.com'
 vCard.email.type_param = 'Email'
 
@@ -24,7 +24,7 @@ o.value = b64_image('cheers_logo.PNG')
 
 vCard.add('TEL')
 vCard.tel.value = '+1-205-852-2477'
-vCard.tel.type_param = 'HOME'
+vCard.tel.type_param = 'Phone'
 
 with open('CheersFood.vcf', 'w') as writer:
         writer.write(vCard.serialize())
