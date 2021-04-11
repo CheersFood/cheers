@@ -4,6 +4,7 @@ import requests
 # from order_stages import OrderStages
 from food_db import get_cuisines, get_dishes
 # from fuzzywuzzy import process
+import emoji
 
 app = Flask(__name__)
 app.secret_key = "secret key thingie"
@@ -19,13 +20,14 @@ def cheers():
     incoming_msg = request.values.get('Body', '').lower()
     resp = MessagingResponse()
     msg = resp.message()
+    
 
-    message_options = ['cheers', 'food']
+    message_options = ['cheers']
     if incoming_msg in message_options:
-        hello = "Thank you for texting Cheers! We make it simple and easy to find food you'll love. We're so excited to show you what we're building. Save our vCard and you'll recieve exclusive information from this number. Cheers!"
+        hello = "Congrats, now you're a Cheers Insider! We make it simple and easy to find food you'll love. We're so excited to show you what we're building. Save our vCard and you'll recieve exclusive updates from this number. Cheers!"
 
         msg.body(hello)
-        msg.media("https://drive.google.com/uc?export=download&id=1T6i3i9IVZICTtoppcTzuh-kQI-oRK2be")
+        msg.media("https://drive.google.com/uc?export=download&id=104uiuRxIQ5DPS2wIWu62EZS3BjGupPnq")
         responded = True
         print(msg)
         return str(resp)
