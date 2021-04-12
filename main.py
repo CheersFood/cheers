@@ -33,7 +33,7 @@ def cheers():
         return str(resp)
 
     else:
-        msg.body("Hello and thank you for texting Cheers! I'm not sure what you said there. If you'd like our vCard, just text \"Cheers\" or \"Food\".")
+        msg.body("Hello and thank you for texting Cheers! I'm not sure what you said there. If you'd like our vCard, just text \"Cheers\"")
         responded = True
         return str(resp)
 
