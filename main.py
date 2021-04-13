@@ -5,6 +5,20 @@ import requests
 from food_db import get_cuisines, get_dishes
 # from fuzzywuzzy import process
 import emoji
+import gspread
+# import pandas as pd
+from oauth2client.service_account import ServiceAccountCredentials
+
+scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+creds = ServiceAccountCredentials.from_json_keyfile_name('cheerskeys.json', scope)
+
+# authorize the clientsheet 
+client = gspread.authorize(creds)
+
+sheet = client.open('Cheers_Insiders_User_Numbers')
+
+# get the first sheet of the Spreadsheet
+sheet_instance = sheet.get_worksheet(0)
 
 app = Flask(__name__)
 app.secret_key = "secret key thingie"
@@ -25,7 +39,8 @@ def cheers():
     message_options = ['cheers']
     if incoming_msg in message_options:
         hello = "Congrats, now you're a Cheers Insider! We make it simple and easy to find food you'll love. We're so excited to show you what we're building. Save our vCard and you'll recieve exclusive updates from this number. Cheers!"
-
+        
+        sheet_instance.insert_row([request.values.get('From')], 1)
         msg.body(hello)
         msg.media("https://drive.google.com/uc?export=download&id=104uiuRxIQ5DPS2wIWu62EZS3BjGupPnq")
         responded = True
