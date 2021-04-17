@@ -9,3 +9,5 @@ order_stages.py
 README.md
 .gitignore
 gcloud_logs.sh
+testy.py
+mass_message.py

@@ -3,52 +3,61 @@ from twilio.twiml.messaging_response import MessagingResponse
 import requests
 # from order_stages import OrderStages
 from food_db import get_cuisines, get_dishes
-# from fuzzywuzzy import process
-import emoji
-import gspread
-# import pandas as pd
-from oauth2client.service_account import ServiceAccountCredentials
+from mass_message import get_sheet
+import logging
+import google.cloud.logging
 
-scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('cheerskeys.json', scope)
+log_client = google.cloud.logging.Client()
+log_client.setup_logging()
 
-# authorize the clientsheet 
-client = gspread.authorize(creds)
-
-sheet = client.open('Cheers_Insiders_User_Numbers')
-
-# get the first sheet of the Spreadsheet
+sheet = get_sheet.load("Cheers_Insiders_User_Numbers")
 sheet_instance = sheet.get_worksheet(0)
 
 app = Flask(__name__)
 app.secret_key = "secret key thingie"
 
-callers = {
-    "+12513001169": "Jack",
-    "+12349013030": "Finn",
-    "+12348134522": "Chewy",
-}
+# callers = {
+#     "+12513001169": "Jack",
+#     "+12349013030": "Finn",
+#     "+12348134522": "Chewy",
+# }
 
 @app.route('/cheers', methods=['GET', 'POST'])
 def cheers():
     incoming_msg = request.values.get('Body', '').lower()
+    print(incoming_msg)
+    logging.info("{} texted: {}".format(request.values.get('From'), incoming_msg))
     resp = MessagingResponse()
     msg = resp.message()
     
 
-    message_options = ['cheers']
-    if incoming_msg in message_options:
-        hello = "Congrats, now you're a Cheers Insider! We make it simple and easy to find food you'll love. We're so excited to show you what we're building. Save our vCard and you'll recieve exclusive updates from this number. Cheers!"
-        
+    new_user_options = ['cheers']
+    existing_user_options = ['cheers', 'vcard', 'socials']
+    if request.values.get('From') not in sheet_instance.col_values(1):
         sheet_instance.insert_row([request.values.get('From')], 1)
-        msg.body(hello)
-        msg.media("https://drive.google.com/uc?export=download&id=104uiuRxIQ5DPS2wIWu62EZS3BjGupPnq")
-        responded = True
-        print(msg)
-        return str(resp)
+        if incoming_msg in new_user_options:
+            hello = "Congrats, now you're a Cheers Insider! We make it simple and easy to find food you'll love. We're so excited to show you what we're building. Save our vCard and you'll recieve exclusive updates from this number. Cheers!"
+            
+            msg.body(hello)
+            msg.media("https://drive.google.com/uc?export=download&id=104uiuRxIQ5DPS2wIWu62EZS3BjGupPnq")
+            responded = True
+            logging.info("Cheers responded with: {}".format(msg.body))
+            print(msg)
+            return str(resp)
+
+    elif request.values.get('From') in sheet_instance.col_values(1):
+        if incoming_msg in existing_user_options:
+            hello = "Hi! Welcome back to Cheers Insiders! Check out our vCard for all our contact info. Cheers!"
+            
+            msg.body(hello)
+            msg.media("https://drive.google.com/uc?export=download&id=104uiuRxIQ5DPS2wIWu62EZS3BjGupPnq")
+            responded = True
+            print(msg)
+            return str(resp)
 
     else:
-        msg.body("Hello and thank you for texting Cheers! I'm not sure what you said there. If you'd like our vCard, just text \"Cheers\"")
+        msg.body("Hello and thank you for texting Cheers Insiders! I'm not sure what you said there. If you'd like our vCard, just text \"Cheers\"")
+        logging.info("Cheers responded with: {}".format(msg.body))
         responded = True
         return str(resp)
 
