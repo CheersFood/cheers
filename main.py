@@ -3,7 +3,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 import requests
 # from order_stages import OrderStages
 from food_db import get_cuisines, get_dishes
-from mass_message import get_sheet
+import get_sheet
 import logging
 import google.cloud.logging
 
