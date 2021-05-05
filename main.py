@@ -1,11 +1,15 @@
 from flask import Flask, request, session
 from twilio.twiml.messaging_response import MessagingResponse
+from twilio.rest import Client
 import requests
 # from order_stages import OrderStages
 from food_db import get_cuisines, get_dishes
 import get_sheet
 import logging
 import google.cloud.logging
+import os
+import time
+import http.client
 
 log_client = google.cloud.logging.Client()
 log_client.setup_logging()
@@ -25,6 +29,12 @@ app.secret_key = "secret key thingie"
 @app.route('/cheers', methods=['GET', 'POST'])
 def cheers():
     incoming_msg = request.values.get('Body', '').lower()
+
+    # media_files = [(request.POST.get("MediaUrl{}".format(i), ''),
+    #                 request.POST.get("MediaContentType{}".format(i), ''))
+    #                for i in range(0, num_media)]
+    
+    print(request.values.get('MediaUrl0', ''))
     print(incoming_msg)
     logging.info("{} texted: {}".format(request.values.get('From'), incoming_msg))
     resp = MessagingResponse()
@@ -54,6 +64,12 @@ def cheers():
             responded = True
             print(msg)
             return str(resp)
+
+    # elif request.values.get('MediaUrl0', '') == True:
+    #     print("Picture!")
+    #     msg.body("Picture!")
+    #     responded = True
+    #     return str(resp)
 
     else:
         msg.body("Hello and thank you for texting Cheers Insiders! I'm not sure what you said there. If you'd like our vCard, just text \"Cheers\"")
@@ -124,10 +140,115 @@ def cheers():
 
     # return str(resp)
 
-
 @app.route('/')
 def hello():
     return '<h1> Hello World!!! I build automatically now!! Woohoo! </h1>'
+
+@app.route('/mass_text', methods=['GET', 'POST'])
+def mass_text():
+    # sheet2 = get_sheet.load("Lunch_Numbers_Switch")
+    # sheet_instance2 = sheet2.get_worksheet(0)
+
+    # sheet2 = get_sheet.load("Lunch_Numbers_Switch")
+    # sheet_instance2 = sheet2.get_worksheet(0)
+
+    account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    client = Client(account_sid, auth_token)
+
+    # numbers = sheet_instance2.col_values(3)[1:]
+
+    operators = ['+12054824656']
+    numbers = ['+12513001169', '+12516043287']
+    mass_text = ""
+
+    incoming_msg = request.values.get('Body', '').lower()
+    incoming_pic = request.values.get('MediaUrl0', '')
+    from_number = request.values.get('From')
+    mass_text_start = False
+    # request.values.has_key('MediaUrl0')
+    print(incoming_msg)
+    resp = MessagingResponse()
+    msg = resp.message()
+
+    # The below code executes if the operator has sent out a new mass-text
+    if from_number in operators:
+        mass_text_start = True
+        logging.info("A new Innovation Depot/Hardware Park mass text session has been created from {}".format(from_number))
+        print("New message from operator detected")
+        print(incoming_pic)
+        # sheet_instance2.insert_row([request.values.get('From')], 1)
+        
+        if mass_text_start == True:
+            if incoming_pic != '':
+                # Mass text operator would like to send is stored as 'mass-text' and sent to list of numbers from excel spreadsheet
+                mass_text = incoming_msg
+                for number in numbers:
+                    conn = http.client.HTTPSConnection('enf42zlvj3y3890.m.pipedream.net')
+                    print(conn)
+                    time.sleep(15)
+                    message = client.messages.create(
+                            to=number, 
+                            from_="+12052725540", 
+                            body=mass_text, 
+                            media_url=[incoming_pic],
+                            status_callback="https://enf42zlvj3y3890.m.pipedream.net")
+                    logging.info("Successfully texted {} to {}".format(message, str(number)))
+                    print(message)
+                    print(number)
+
+                logging.info("Text was sent to {} numbers".format(len(numbers)))
+
+                # Response to operator
+                msg.body("Your mass-text has been sent. All responses will appear in this chat window.")
+
+                responded = True
+                print(msg)
+                return str(resp)
+
+            elif incoming_pic == '':
+                    # Mass text operator would like to send is stored as 'mass-text' and sent to list of numbers from excel spreadsheet
+                mass_text = incoming_msg
+                for number in numbers:
+                    time.sleep(15)
+                    message = client.messages.create(
+                            to=number, 
+                            from_="+12052725540", 
+                            body=mass_text, 
+                            media_url=[incoming_pic],
+                            status_callback='https://enf42zlvj3y3890.m.pipedream.net')
+                    logging.info("Successfully texted {} to {}".format(message, str(number)))
+                    print(message)
+                    print(number)
+
+                logging.info("Text was sent to {} numbers".format(len(numbers)))
+
+                # Response to operator
+                msg.body("Your mass-text has been sent. All responses will appear in this chat window.")
+
+                responded = True
+                print(msg)
+                return str(resp)
+    
+    # The below code executes if a customer is responding to a mass-text
+    elif from_number not in operators:
+        logging.info("{} has responded to mass-text with {}".format(from_number, incoming_msg))
+        print("User has responded to mass-text with {}".format(incoming_msg))
+        conn = http.client.HTTPSConnection('enf42zlvj3y3890.m.pipedream.net')
+        print(conn)
+
+        new_body = "{}: {}".format(from_number, incoming_msg)
+        print(new_body)
+        # Customer response is sent to operator
+        message = client.messages.create(
+                to="+12054824656", 
+                from_="+12052725540", 
+                body=new_body,
+                status_callback='https://enf42zlvj3y3890.m.pipedream.net'
+        )
+
+        logging.info("Successfully delivered customer repsonse to operator.")
+        return "Successfully delivered customer repsonse to operator."
 
 if __name__ == '__main__':
     app.run(debug=True)

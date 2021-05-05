@@ -15,7 +15,9 @@ account_sid = os.environ['TWILIO_ACCOUNT_SID']
 auth_token = os.environ['TWILIO_AUTH_TOKEN']
 client = Client(account_sid, auth_token)
 
-#DO NOT UNCOMMENT THE BELOW CODE UNLESS YOU ARE SENDING MASS MESSAGES!!!!!
+"""
+DO NOT UNCOMMENT THE BELOW CODE UNLESS YOU ARE SENDING MASS MESSAGES!!!!!
+"""
 # numbers = sheet_instance.col_values(1)
 
 # text = "Cheers and Happy Friday! In case you missed the news, Cheers won second place at Innovation Depot's Voltage Pitch-Off!! For more Cheers, feel free to follow us on Instagram at @textcheers!"

@@ -3,3 +3,6 @@
 /venv/
 gcloud_logs.sh
 testy.py
+env_variables.yaml
+cloudbuild.yaml
+app.yaml
