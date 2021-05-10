@@ -9,7 +9,7 @@ import logging
 import google.cloud.logging
 import os
 import time
-import http.client
+from http import client
 
 log_client = google.cloud.logging.Client()
 log_client.setup_logging()
