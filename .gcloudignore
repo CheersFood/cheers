@@ -11,3 +11,4 @@ README.md
 gcloud_logs.sh
 testy.py
 mass_message.py
+env_variables.yaml
