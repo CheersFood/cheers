@@ -147,17 +147,15 @@ def hello():
 @app.route('/mass_text', methods=['GET', 'POST'])
 def mass_text():
 
-    sheet = get_sheet.load("Mass_Text_Test")
-    sheet_instance = sheet.get_worksheet(0)
-
     account_sid = os.environ['TWILIO_ACCOUNT_SID']
     auth_token = os.environ['TWILIO_AUTH_TOKEN']
     twil_client = Client(account_sid, auth_token)
 
-    # numbers = ['+12513338432', '+12516043287', '+14149090265', '+12513001169']
+    sheet = get_sheet.load("Lunch_Numbers_Switch")
+    sheet_instance = sheet.get_worksheet(0)
 
-    numbers = sheet_instance.col_values(1)
-    names = sheet_instance.col_values(2)
+    numbers = sheet_instance.col_values(3)[2:]
+    first_names = sheet_instance.col_values(1)[2:]
 
     operator = ['+12054824656']
 
@@ -225,13 +223,13 @@ def mass_text():
                 return str(resp)
 
     elif from_number not in operator:
-        name_vals = [numbers.index(val) for val in numbers if val == from_number]
-        name = names[name_vals[0]]
+        name_vals = numbers.index(from_number)
+        name = first_names[name_vals]
 
         logging.info("{} has responded to mass-text with {}".format(name, incoming_msg))
         print("{} has responded to mass-text with {}".format(name, incoming_msg))
 
-        new_body = "{}: {}".format(name, incoming_msg)
+        new_body = "{} ({}): {}".format(name, from_number, incoming_msg)
 
         print(new_body)
 

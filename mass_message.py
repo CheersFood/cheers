@@ -1,18 +1,32 @@
-# from flask import Flask, request, session
-# from twilio.twiml.messaging_response import MessagingResponse
-# import os
-# from twilio.rest import Client
-# import requests
-# import get_sheet
-# import google.cloud.logging
-# import logging
-# from http import client
+from flask import Flask, request, session
+from twilio.twiml.messaging_response import MessagingResponse
+import os
+from twilio.rest import Client
+import requests
+import get_sheet
+import google.cloud.logging
+import logging
+from http import client
 
-# app = Flask(__name__)
-# app.secret_key = "secret key thingie"
+app = Flask(__name__)
+app.secret_key = "secret key thingie"
 
-# logClient = google.cloud.logging.Client()
-# logClient.setup_logging()
+logClient = google.cloud.logging.Client()
+logClient.setup_logging()
+
+sheet = get_sheet.load("Lunch_Numbers_Switch")
+sheet_instance = sheet.get_worksheet(0)
+
+numbers = sheet_instance.col_values(3)[2:]
+first_names = sheet_instance.col_values(1)[2:]
+
+numbuh = '+13344143702'
+
+name_vals = numbers.index(numbuh)
+name = first_names[name_vals]
+
+print("{} ({}): Hiya".format(name, numbuh))
+
 
 # @app.route('/mass_text', methods=['GET', 'POST'])
 # def mass_text():
