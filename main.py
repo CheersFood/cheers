@@ -190,6 +190,8 @@ def mass_text():
                             status_callback="https://enf42zlvj3y3890.m.pipedream.net")
                     
                     logging.info("Successfully texted {} to {}".format(incoming_msg, str(number)))
+                    # logging.info(message.sid['status'])
+
                     print("Successfully texted {} to {}".format(incoming_msg, str(number)))
 
                 logging.info("Text was sent to {} numbers".format(len(numbers)))
@@ -211,6 +213,8 @@ def mass_text():
                             status_callback="https://enf42zlvj3y3890.m.pipedream.net")
                     
                     logging.info("Successfully texted {} to {}".format(incoming_msg, str(number)))
+                    # logging.info(message.sid['status'])
+
                     print("Successfully texted {} to {}".format(incoming_msg, str(number)))
 
                 logging.info("Text was sent to {} numbers".format(len(numbers)))
@@ -240,6 +244,8 @@ def mass_text():
                 body=new_body,
                 status_callback='https://enf42zlvj3y3890.m.pipedream.net'
         )
+
+        # logging.info(message.sid['status'])
 
         logging.info("Successfully delivered customer repsonse to operator.")
         print("Successfully delivered customer repsonse to operator.")
