@@ -23,7 +23,7 @@ Git is used for software version control.
     1. `virtualenv venv`
     2. Activate virtual environent. Windows: `./venv/Scripts/activate` MacOS: `source venv/bin/activate`
     3. Your virtual environment is now activated. All packages you install in your virtual environment will be separate from the rest of your OS.
-5. In a terminal, install packages from requirements.txt using: `pip install requirements.txt`
+5. In a terminal, install packages from requirements.txt using: `pip install -r requirements.txt`
 6. Create a new file called `app.yaml` and insert the following code:
     ```
     runtime: python39
