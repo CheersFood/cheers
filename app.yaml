@@ -1,9 +1,0 @@
-runtime: python39
-
-entrypoint: gunicorn -b :$PORT main:app
-
-env_variables:
-  TWILIO_ACCOUNT_SID: 'ACa3eef285045026c8b83408427570603d'
-  TWILIO_AUTH_TOKEN: '2bd44e81ec6fe782b4d9501908e32d57'
-
-  
