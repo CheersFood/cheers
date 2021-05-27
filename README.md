@@ -18,11 +18,11 @@ Git is used for software version control.
 
 1. Download and install [Python 3.8.5](https://www.python.org/downloads/release/python-385/)
 2. Downloand and install [git](https://git-scm.com/downloads)
-3. When you have Python installed make a new virtual environment. Open a new Visual Studio Code terminala and run:
+3. Clone, or download, the git repository by clicking the "Source Control" option on the far left sidebar, and click "Clone Repository". Paste in the url of the Cheers github repository (https://github.com/CheersFood/cheers.git). You may be asked to login to your GitHub account. Wait for the download to complete. 
+4. When you have Python installed make a new virtual environment. Open a new Visual Studio Code terminala and run:
     1. `virtualenv venv`
     2. Activate virtual environent. Windows: `./venv/Scripts/activate` MacOS: `source venv/bin/activate`
     3. Your virtual environment is now activated. All packages you install in your virtual environment will be separate from the rest of your OS.
-4. Clone, or download, the git repository by clicking the "Source Control" option on the far left sidebar, and click "Clone Repository". Paste in the url of the Cheers github repository (https://github.com/CheersFood/cheers.git). You may be asked to login to your GitHub account. Wait for the download to complete. 
 5. In a terminal, install packages from requirements.txt using: `pip install requirements.txt`
 6. Create a new file called `app.yaml` and insert the following code:
     ```
