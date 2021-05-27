@@ -1,5 +1,10 @@
 # Cheers!
 
+- Make virtual environment
+- Install packages from requirements.txt
+- Put twilio keys in environent variables
+- Download json ile containing google keys
+
 https://cheersapp.io/
 
 Cheers solves the age-old question, "what should we get to eat?" 

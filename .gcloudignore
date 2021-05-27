@@ -4,11 +4,7 @@
 /venv/
 /.vscode/
 package-lock.json
-order_stages.py
 /.git/
 README.md
 .gitignore
-gcloud_logs.sh
-testy.py
-mass_message.py
-env_variables.yaml
+
