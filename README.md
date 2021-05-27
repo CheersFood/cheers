@@ -34,10 +34,11 @@ Git is used for software version control.
         TWILIO_ACCOUNT_SID: 'SID GOES HERE'
         TWILIO_AUTH_TOKEN: 'TOKEN GOES HERE'
     ```
-    1. Insert TWILIO_ACCOUNT_SID and the TWILIO_AUTH_TOKEN. These can be found on the Twilio console. You cannot use Twilio programatically without this information. 
+    1. Insert TWILIO_ACCOUNT_SID and the TWILIO_AUTH_TOKEN. These can be found on the Twilio console. You cannot use the Cheers mass-text function without this information. DO NOT SHARE THE TOKEN OR SID WITH ANYONE. EVER. 
 7. Download json file containing google keys and put in working directory. This is required to communicate with Google Sheets and can be found in the Google Cloud Console. Ask Jack for more information on this.  
 8. Set GOOGLE_APPLICATION_CREDENTIALS environment variable to location of json file containing google keys. 
     - e.g. $env:GOOGLE_APPLICATION_CREDENTIALS="some_filepath/somefile.json"
+9. Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 
 You have now prepared your development environment. 
 
@@ -47,6 +48,7 @@ You have now prepared your development environment.
 2. Copy the https url and past it into the "Messaging" webhook on Twilio for the Test Number. 
 3. Run `python main.py` in a VS Code terminal. You can now send messages to the Test Number and output will appear in the terminal. 
 
+When you have completed testing, you can deploy to Google Cloud by running `gcloud app deploy`. 
 Direct questions to Jack. 
 
 ### Git Workflow
