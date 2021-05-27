@@ -24,7 +24,17 @@ Git is used for software version control.
     3. Your virtual environment is now activated. All packages you install in your virtual environment will be separate from the rest of your OS.
 4. Clone, or download, the git repository by clicking the "Source Control" option on the far left sidebar, and click "Clone Repository". Paste in the url of the Cheers github repository (https://github.com/CheersFood/cheers.git). You may be asked to login to your GitHub account. Wait for the download to complete. 
 5. In a terminal, install packages from requirements.txt using: `pip install requirements.txt`
-6. Open `app.yaml` and insert the TWILIO_ACCOUNT_SID and the TWILIO_AUTH_TOKEN. These can be found on the Twilio console. You cannot use Twilio programatically without this information. 
+6. Create a new file called `app.yaml` and insert the following code:
+    ```
+    runtime: python39
+
+    entrypoint: gunicorn -b :$PORT main:app
+
+    env_variables:
+        TWILIO_ACCOUNT_SID: 'SID GOES HERE'
+        TWILIO_AUTH_TOKEN: 'TOKEN GOES HERE'
+    ```
+    1. Insert TWILIO_ACCOUNT_SID and the TWILIO_AUTH_TOKEN. These can be found on the Twilio console. You cannot use Twilio programatically without this information. 
 7. Download json file containing google keys and put in working directory. This is required to communicate with Google Sheets and can be found in the Google Cloud Console. Ask Jack for more information on this.  
 8. Set GOOGLE_APPLICATION_CREDENTIALS environment variable to location of json file containing google keys. 
     - e.g. $env:GOOGLE_APPLICATION_CREDENTIALS="some_filepath/somefile.json"
