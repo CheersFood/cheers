@@ -42,6 +42,9 @@ Git is used for software version control.
 
 You have now prepared your development environment. 
 
+- Note about new packages:
+    - In order to be recognized by Google Cloud, all new packages must be listed in `requirements.txt`. To update this file with all currently installed packages in your virtual environment, run `pip freeze > requirements.txt`
+
 ### Testing
 ***
 1. To use the Cheers Twilio Test Number, you must setup an ngrok server. Download ngrok and run `./ngrok http 5000`. This will start a new http server that lasts for 2 hours. 
