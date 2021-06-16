@@ -157,7 +157,7 @@ def mass_text():
     numbers = sheet_instance.col_values(3)[2:]
     first_names = sheet_instance.col_values(1)[2:]
 
-    operator = ['+12054824656']
+    operator = ['+12052580198']
 
     conn = client.HTTPSConnection('enf42zlvj3y3890.m.pipedream.net')
     
@@ -208,7 +208,7 @@ def mass_text():
                 for number in numbers:
                     message = twil_client.messages.create(
                             to=number, 
-                            from_="+12052725540",
+                            from_="+12052580198",
                             body=incoming_msg,
                             status_callback="https://enf42zlvj3y3890.m.pipedream.net")
                     
