@@ -153,7 +153,7 @@ def mass_text():
 
     sheet = get_sheet.load("Lunch_Numbers_Switch")
     sheet_instance = sheet.get_worksheet(0)
-
+    
     numbers = sheet_instance.col_values(3)[2:]
     first_names = sheet_instance.col_values(1)[2:]
 
@@ -208,7 +208,7 @@ def mass_text():
                 for number in numbers:
                     message = twil_client.messages.create(
                             to=number, 
-                            from_="+12052580198",
+                            from_="+12052725540",
                             body=incoming_msg,
                             status_callback="https://enf42zlvj3y3890.m.pipedream.net")
                     
@@ -239,7 +239,7 @@ def mass_text():
 
         # Customer response is sent to operator
         message = twil_client.messages.create(
-                to="+12054824656", 
+                to="+12052580198", 
                 from_='+12052725540', 
                 body=new_body,
                 status_callback='https://enf42zlvj3y3890.m.pipedream.net'
