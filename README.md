@@ -1,6 +1,6 @@
 # Cheers!
-This is the main repository for Cheers Food. 
-https://cheersapp.io/
+This is the main repository for TextCheers. 
+https://textcheers.com/
 
 ### Development Environment
 ***
